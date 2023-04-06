@@ -29,7 +29,6 @@ const registeredDistSchema = new mongoose.Schema(
     ifsc: {
       type: String,
       require: true,
-      unique: true,
     },
     address: {
       type: String,

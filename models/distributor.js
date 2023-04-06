@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { ObjectId } = mongoose.Types;
 
 const distributorSchema = new mongoose.Schema(
   {
@@ -30,7 +29,6 @@ const distributorSchema = new mongoose.Schema(
     ifsc: {
       type: String,
       require: true,
-      unique: true,
     },
     address: {
       type: String,
@@ -72,6 +70,11 @@ const distributorSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
+    },
+    role: {
+      type: String,
+      enum: ["admin", "distributor", "user"],
+      default: "distributor",
     },
   },
   { timestamps: true }
