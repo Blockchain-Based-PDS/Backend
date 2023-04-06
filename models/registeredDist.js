@@ -34,10 +34,6 @@ const registeredDistSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    ward: {
-      type: Number,
-      required: true,
-    },
     locality: {
       type: String,
       required: true,
@@ -50,7 +46,15 @@ const registeredDistSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    shopWard: {
+      type: Number,
+      required: true,
+    },
     shopAddress: {
+      type: String,
+      required: true,
+    },
+    shopDistrict: {
       type: String,
       required: true,
     },

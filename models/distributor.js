@@ -34,10 +34,6 @@ const distributorSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    ward: {
-      type: Number,
-      required: true,
-    },
     locality: {
       type: String,
       required: true,
@@ -47,6 +43,14 @@ const distributorSchema = new mongoose.Schema(
       required: true,
     },
     businessRegNo: {
+      type: String,
+      required: true,
+    },
+    shopWard: {
+      type: Number,
+      required: true,
+    },
+    shopDistrict: {
       type: String,
       required: true,
     },

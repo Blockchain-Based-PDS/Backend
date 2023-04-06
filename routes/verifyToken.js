@@ -22,45 +22,51 @@ const verifyToken = (req, res, next) => {
 };
 
 const verifyTokenAndAdmin = (req, res, next) => {
-  verifyToken(req, res, async () => {
-    try {
-      const admin = await Admin.findById(req.user.id);
-      if (!admin)
-        return res.status(401).json("You are not allowed to do that!");
-    } catch (err) {
-      return res.status(500).json(err);
+  verifyToken(req, res, () => {
+    if (req.user.role === "admin") {
+      next();
+    } else {
+      return res.status(403).json("You are not allowed to do that!");
     }
-    next();
   });
 };
 
-const verifyTokenAndDist = (req, res, next) => {
-  verifyToken(req, res, async () => {
-    try {
-      const dist = await Distributor.findById(req.user.id);
-      if (!dist) return res.status(401).json("You are not allowed to do that!");
-    } catch (err) {
-      return res.status(500).json(err);
+const verifyTokenAndDistAuthorization = (req, res, next) => {
+  verifyToken(req, res, () => {
+    if (req.user.id === req.params.id || req.user.role === "admin") {
+      next();
+    } else {
+      return res.status(403).json("You are not allowed to do that!");
     }
-    next();
   });
 };
 
-const verifyTokenAndUser = (req, res, next) => {
+const verifyTokenAndUserAuthorization = (req, res, next) => {
   verifyToken(req, res, async () => {
+    var user = null;
     try {
-      const user = await user.findById(req.user.id);
-      if (!user) return res.status(401).json("You are not allowed to do that!");
+      user = await User.findById(req.params.id);
     } catch (err) {
-      return res.status(500).json(err);
+      return res.status(403).json("User doesn't exist!");
     }
-    next();
+    if (
+      req.user.id === req.params.id ||
+      req.user.role === "admin" ||
+      (req.user.role === "distributor" &&
+        req.user.shopDistrict === user.district &&
+        req.user.shopWard === user.ward &&
+        req.user.shopPinCode === user.pinCode)
+    ) {
+      next();
+    } else {
+      return res.status(403).json("You are not allowed to do that!");
+    }
   });
 };
 
 module.exports = {
   verifyToken,
   verifyTokenAndAdmin,
-  verifyTokenAndDist,
-  verifyTokenAndUser,
+  verifyTokenAndDistAuthorization,
+  verifyTokenAndUserAuthorization,
 };

@@ -46,13 +46,17 @@ const userSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    district: {
+      type: String,
+      required: true,
+    },
     locality: {
       type: String,
       required: true,
     },
     smartCoins: {
       type: Number,
-      required: true,
+      default: 0,
     },
     role: {
       type: String,
