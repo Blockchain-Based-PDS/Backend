@@ -22,7 +22,7 @@ router.post("/register", distReg);
 router.post("/login", distLogin);
 
 // edit dist details
-router.put("/edit/:id", verifyTokenAndDistAuthorization, updateDist);
+router.put("/edit/:distId", verifyTokenAndDistAuthorization, updateDist);
 
 // Add Distributor to Original Distributor DB
 router.post("/add/:id", verifyTokenAndAdmin, addDistributor);
@@ -40,6 +40,6 @@ router.get("/", verifyTokenAndAdmin, allDist);
 router.get("/reg", verifyTokenAndAdmin, allReg);
 
 // details of a particular dist
-router.get("/:id", verifyTokenAndDistAuthorization, distDetails);
+router.get("/:distId", verifyTokenAndDistAuthorization, distDetails);
 
 module.exports = router;

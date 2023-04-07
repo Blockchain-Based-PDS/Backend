@@ -32,9 +32,9 @@ router.get("/:id", verifyTokenAndUserAuthorization, userDetails);
 
 // users under a dist
 // here id is distId
-router.get("/all/:id", verifyTokenAndDistAuthorization, allUsersUnderADist);
+router.get("/all/:distId", verifyTokenAndDistAuthorization, allUsersUnderADist);
 
 // delete user
-router.delete("/:id", verifyTokenAndDistAuthorization, deleteUser);
+router.delete("/:distId/:id", verifyTokenAndDistAuthorization, deleteUser);
 
 module.exports = router;
